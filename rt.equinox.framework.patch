@@ -1,0 +1,449 @@
+diff --git a/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/.project b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/.project
+new file mode 100644
+index 0000000..a513e9a
+--- /dev/null
++++ b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/.project
+@@ -0,0 +1,22 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<projectDescription>
++	<name>org.eclipse.equinox.launcher.gtk.linux.armv6l</name>
++	<comment></comment>
++	<projects>
++	</projects>
++	<buildSpec>
++		<buildCommand>
++			<name>org.eclipse.pde.ManifestBuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++		<buildCommand>
++			<name>org.eclipse.pde.SchemaBuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++	</buildSpec>
++	<natures>
++		<nature>org.eclipse.pde.PluginNature</nature>
++	</natures>
++</projectDescription>
+diff --git a/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/META-INF/MANIFEST.MF b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/META-INF/MANIFEST.MF
+new file mode 100644
+index 0000000..b4f1a06
+--- /dev/null
++++ b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/META-INF/MANIFEST.MF
+@@ -0,0 +1,10 @@
++Manifest-Version: 1.0
++Bundle-ManifestVersion: 2
++Bundle-Name: %pluginName
++Bundle-Vendor: %providerName
++Bundle-SymbolicName: org.eclipse.equinox.launcher.gtk.linux.armv6l;singleton:=true
++Bundle-Version: 1.0.0.qualifier
++Fragment-Host: org.eclipse.equinox.launcher;bundle-version="[1.0.0,1.4.0)"
++Eclipse-PlatformFilter: (& (osgi.ws=gtk) (osgi.os=linux) (osgi.arch=armv6l))
++Bundle-Localization: launcher.gtk.linux.armv6l
++Eclipse-BundleShape: dir
+diff --git a/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/about.html b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/about.html
+new file mode 100644
+index 0000000..395df3b
+--- /dev/null
++++ b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/about.html
+@@ -0,0 +1,28 @@
++<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
++    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
++<html xmlns="http://www.w3.org/1999/xhtml">
++<head>
++<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
++<title>About</title>
++</head>
++<body lang="EN-US">
++<h2>About This Content</h2>
++
++<p>June 5, 2006</p>	
++<h3>License</h3>
++
++<p>The Eclipse Foundation makes available all content in this plug-in (&quot;Content&quot;).  
++Unless otherwise indicated below, the Content is provided to you under the terms and conditions of the
++Eclipse Public License Version 1.0 (&quot;EPL&quot;).  A copy of the EPL is available 
++at <a href="http://www.eclipse.org/org/documents/epl-v10.php">http://www.eclipse.org/legal/epl-v10.html</a>.
++For purposes of the EPL, &quot;Program&quot; will mean the Content.</p>
++
++<p>If you did not receive this Content directly from the Eclipse Foundation, the Content is 
++being redistributed by another party (&quot;Redistributor&quot;) and different terms and conditions may
++apply to your use of any object code in the Content.  Check the Redistributor&rsquo;s license 
++that was provided with the Content.  If no such license exists, contact the Redistributor.  Unless otherwise
++indicated below, the terms and conditions of the EPL still apply to any source code in the Content
++and such source code may be obtained at <a href="http://www.eclipse.org/">http://www.eclipse.org</a>.</p>
++
++</body>
++</html>
+\ No newline at end of file
+diff --git a/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/build.properties b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/build.properties
+new file mode 100644
+index 0000000..8caf29a
+--- /dev/null
++++ b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/build.properties
+@@ -0,0 +1,19 @@
++###############################################################################
++# Copyright (c) 2011, 2014 IBM Corporation and others.
++# All rights reserved. This program and the accompanying materials
++# are made available under the terms of the Eclipse Public License v1.0
++# which accompanies this distribution, and is available at
++# http://www.eclipse.org/legal/epl-v10.html
++#
++# Contributors:
++#     IBM Corporation - initial API and implementation
++#     Torkild U. Resheim - Added ARMv6l support
++###############################################################################
++bin.includes = META-INF/,\
++               eclipse_*.so,\
++               launcher.gtk.linux.armv6l.properties,\
++               about.html
++               
++customBuildCallbacks=customBuildCallbacks.xml
++generateSourceBundle=false
++binaryTag=v20140603-0926
+diff --git a/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/customBuildCallbacks.xml b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/customBuildCallbacks.xml
+new file mode 100644
+index 0000000..294515f
+--- /dev/null
++++ b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/customBuildCallbacks.xml
+@@ -0,0 +1,124 @@
++<!-- ===================================================================== -->
++<!-- Custom targets called from a project's generated build.xml            -->
++<!-- Set customBuildCallbacks=<path/to/this/file> in your build.properties.-->
++<!-- ===================================================================== -->
++<project name="Build specific targets and properties" default="noDefault">
++
++	<!-- ===================================================================== -->
++	<!-- Default target                                                        -->
++	<!-- ===================================================================== -->
++	<target name="noDefault">
++		<echo message="This file must be called with explicit targets" />
++	</target>
++	
++	<!-- ===================================================================== -->
++	<!-- Steps to do before the target build.jars                              -->
++	<!-- Available parameters :                                                -->
++	<!--   build.result.folder - folder to contain the build results           -->
++	<!-- ===================================================================== -->
++	<target name="pre.build.jars">
++	</target>
++
++	<!-- ===================================================================== -->
++	<!-- Steps to do after the target build.jars                               -->
++	<!-- Available parameters :                                                -->
++	<!--   build.result.folder - folder to contain the build results           -->
++	<!-- ===================================================================== -->
++	<target name="post.build.jars">	
++	</target>
++	
++	<!-- ===================================================================== -->
++	<!-- Steps to do before the target build.sources                           -->
++	<!-- Available parameters :                                                -->
++	<!--   build.result.folder - folder to contain the build results           -->
++	<!-- ===================================================================== -->
++	<target name="pre.build.sources">
++	</target>
++
++	<!-- ===================================================================== -->
++	<!-- Steps to do after the target build.sources                            -->
++	<!-- Available parameters :                                                -->
++	<!--   build.result.folder - folder to contain the build results           -->
++	<!-- ===================================================================== -->
++	<target name="post.build.sources">
++	</target>
++	
++	<target name="pre.gather.bin.parts" unless="dontFetchBinaries">
++		<property file="${basedir}/build.properties" />
++		<basename file="${basedir}" property="fragmentName" />
++		<available file="/gitroot/equinox/rt.equinox.binaries.git" type="dir" property="gitRepo" value="/gitroot/equinox/rt.equinox.binaries.git" />
++		<property name="gitRepo" value="ssh://git.eclipse.org/gitroot/equinox/rt.equinox.binaries.git" />
++		
++		<exec dir="${basedir}" executable="git" output="${basedir}/binary.tar" errorproperty="errorResult" >
++			<arg line="archive --format=tar --remote=${gitRepo} ${binaryTag} ${fragmentName}" />
++		</exec>
++		
++		<copy todir="${basedir}">
++			<tarfileset includes="${fragmentName}/**" src="${basedir}/binary.tar" />
++			<globmapper from="${fragmentName}/*" to="*" />
++		</copy>
++		
++		<delete file="${basedir}/binary.tar" failonerror="false" quiet="true" />
++	</target>
++	
++	<!-- ===================================================================== -->
++	<!-- Steps to do after the target gather.bin.parts                         -->
++	<!-- Available parameters :                                                -->
++	<!--   base.dir - root of the project                                      -->
++	<!--   build.result.folder - folder containing the build results           -->
++	<!--   target.folder - destination folder                                  -->
++	<!-- ===================================================================== -->
++	<target name="post.gather.bin.parts">
++		<chmod perm="755" dir="${target.folder}" includes="eclipse_*" />
++	</target>
++	
++	<!-- ===================================================================== -->
++	<!-- Steps to do before the target gather.sources                          -->
++	<!-- Available parameters :                                                -->
++	<!--   destination.temp.folder - destination folder                        -->
++	<!-- ===================================================================== -->
++	<target name="pre.gather.sources">
++	</target>
++
++	<!-- ===================================================================== -->
++	<!-- Steps to do after the target gather.sources                           -->
++	<!-- Available parameters :                                                -->
++	<!--   destination.temp.folder - destination folder                        -->
++	<!-- ===================================================================== -->
++	<target name="post.gather.sources">
++	</target>
++
++	<!-- ===================================================================== -->
++	<!-- Steps to do before the target gather.logs                             -->
++	<!-- Available parameters :                                                -->
++	<!--   destination.temp.folder - destination folder                        -->
++	<!-- ===================================================================== -->
++	<target name="pre.gather.logs">        
++	</target>
++
++	<!-- ===================================================================== -->
++	<!-- Steps to do after the target gather.logs                              -->
++	<!-- Available parameters :                                                -->
++	<!--   destination.temp.folder - destination folder                        -->
++	<!-- ===================================================================== -->
++	<target name="post.gather.logs">       
++	</target>
++
++	<!-- ===================================================================== -->
++	<!-- Steps to do before the target clean                                   -->
++	<!-- Available parameters :                                                -->
++	<!--   destination.temp.folder - destination folder                        -->
++	<!-- ===================================================================== -->
++	<target name="pre.clean">              
++	</target>
++
++	<!-- ===================================================================== -->
++	<!-- Steps to do after the target clean                                    -->
++	<!-- Available parameters :                                                -->
++	<!--   plugin.destination - final destination of the build                 -->
++	<!--   build.result.folder - results of the compilation                    -->
++	<!--   temp.folder - temporary folder                                      -->
++	<!-- ===================================================================== -->
++	<target name="post.clean">             
++	</target>
++</project>
+diff --git a/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/forceQualifierUpdate.txt b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/forceQualifierUpdate.txt
+new file mode 100644
+index 0000000..56f1032
+--- /dev/null
++++ b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/forceQualifierUpdate.txt
+@@ -0,0 +1,2 @@
++# To force a version qualifier update add the bug here
++Bug 403352 - Update all parent versions to match our build stream
+diff --git a/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/launcher.gtk.linux.armv6l.properties b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/launcher.gtk.linux.armv6l.properties
+new file mode 100644
+index 0000000..8efcc48
+--- /dev/null
++++ b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/launcher.gtk.linux.armv6l.properties
+@@ -0,0 +1,13 @@
++###############################################################################
++# Copyright (c) 2007, 2009, 2014 IBM Corporation and others.
++# All rights reserved. This program and the accompanying materials
++# are made available under the terms of the Eclipse Public License v1.0
++# which accompanies this distribution, and is available at
++# http://www.eclipse.org/legal/epl-v10.html
++# 
++# Contributors:
++#     IBM Corporation - initial API and implementation
++#     Torkild U. Resheim - Added ARMv6l support 
++###############################################################################
++pluginName = Equinox Launcher Linux ARMv6l Fragment
++providerName = Eclipse.org - Equinox
+diff --git a/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/pom.xml b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/pom.xml
+new file mode 100644
+index 0000000..f236bce
+--- /dev/null
++++ b/bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l/pom.xml
+@@ -0,0 +1,31 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!--
++  Copyright (c) 2012 Eclipse Foundation.
++  All rights reserved. This program and the accompanying materials
++  are made available under the terms of the Eclipse Distribution License v1.0
++  which accompanies this distribution, and is available at
++  http://www.eclipse.org/org/documents/edl-v10.php
++ 
++  Contributors:
++     Igor Fedorenko - initial implementation
++     Torkild U. Resheim - Added ARMv6l support
++-->
++<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
++  <modelVersion>4.0.0</modelVersion>
++  <parent>
++    <artifactId>launcher-binary-parent</artifactId>
++    <groupId>org.eclipse.equinox.framework</groupId>
++    <version>4.4.0-SNAPSHOT</version>
++    <relativePath>../../launcher-binary-parent</relativePath>
++  </parent>
++  <groupId>org.eclipse.equinox</groupId>
++  <artifactId>org.eclipse.equinox.launcher.gtk.linux.armv6l</artifactId>
++  <version>1.0.0-SNAPSHOT</version>
++  <packaging>eclipse-plugin</packaging>
++
++  <properties>
++    <os>linux</os>
++    <ws>gtk</ws>
++    <arch>armv6l</arch>
++  </properties>
++</project>
+diff --git a/bundles/org.eclipse.osgi/container/src/org/eclipse/osgi/internal/framework/processor.aliases b/bundles/org.eclipse.osgi/container/src/org/eclipse/osgi/internal/framework/processor.aliases
+index 5fb0ff3..5b84dd5 100644
+--- a/bundles/org.eclipse.osgi/container/src/org/eclipse/osgi/internal/framework/processor.aliases
++++ b/bundles/org.eclipse.osgi/container/src/org/eclipse/osgi/internal/framework/processor.aliases
+@@ -23,6 +23,7 @@ PowerPC power ppc                       # Motorola/IBM Power PC
+ Sparc                                   # SUN
+ x86 pentium i386 i486 i586 i686         # Intel
+ s390                                    # IBM System 390
+-s390x                                  # IBM System 390 (64-bit)
++s390x                                   # IBM System 390 (64-bit)
+ v850e                                   # NEC V850E
+ x86-64 amd64 em64t x86_64               # 64 bit x86 architecture
++armv6l									# ARMv6 little endian
+diff --git a/features/org.eclipse.equinox.executable.feature/feature.xml b/features/org.eclipse.equinox.executable.feature/feature.xml
+index 6ff5b9a..9959fb0 100644
+--- a/features/org.eclipse.equinox.executable.feature/feature.xml
++++ b/features/org.eclipse.equinox.executable.feature/feature.xml
+@@ -102,6 +102,16 @@
+          fragment="true"/>
+ 
+    <plugin
++         id="org.eclipse.equinox.launcher.gtk.linux.armv6l"
++         os="linux"
++         ws="gtk"
++         arch="armv6l"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"/>
++
++   <plugin
+          id="org.eclipse.equinox.launcher.gtk.aix.ppc64"
+          os="aix"
+          ws="gtk"
+diff --git a/features/org.eclipse.equinox.executable.feature/library/gtk/build.sh b/features/org.eclipse.equinox.executable.feature/library/gtk/build.sh
+index 29d3871..49bd57c 100644
+--- a/features/org.eclipse.equinox.executable.feature/library/gtk/build.sh
++++ b/features/org.eclipse.equinox.executable.feature/library/gtk/build.sh
+@@ -119,6 +119,11 @@ case $defaultOS in
+ 				defaultJava=DEFAULT_JAVA_EXEC
+ 				OUTPUT_DIR="$EXEC_DIR/bin/$defaultWS/$defaultOS/$defaultOSArch"
+ 				;;
++			"armv6l")
++				defaultOSArch="armv6l"
++				[ -d /bluebird/teamswt/swt-builddir/build/JRE/x32/jdk1.6.0_14 ] && defaultJavaHome="/bluebird/teamswt/swt-builddir/build/JRE/x32/jdk1.6.0_14"
++				OUTPUT_DIR="$EXEC_DIR/bin/$defaultWS/$defaultOS/$defaultOSArch"
++				;;
+ 			*)
+ 				echo "*** Unknown MODEL <${MODEL}>"
+ 				;;
+diff --git a/features/org.eclipse.equinox.executable.feature/pom.xml b/features/org.eclipse.equinox.executable.feature/pom.xml
+index 156de22..3b19684 100644
+--- a/features/org.eclipse.equinox.executable.feature/pom.xml
++++ b/features/org.eclipse.equinox.executable.feature/pom.xml
+@@ -220,6 +220,36 @@
+       </build>
+     </profile>
+     <profile>
++      <id>build-native-launchers-gtk.linux.armv6l</id>
++      <activation>
++        <property>
++          <name>native</name>
++          <value>gtk.linux.armv6l</value>
++        </property>
++      </activation>
++      <build>
++        <plugins>
++          <plugin>
++            <artifactId>maven-antrun-plugin</artifactId>
++            <executions>
++              <execution>
++                <id>compile-executable-natives</id>
++                <phase>generate-resources</phase>
++                <configuration>
++                  <target>
++                    <ant antfile="build.xml" dir="library/gtk/" target="build_eclipse" />
++                  </target>
++                </configuration>
++                <goals>
++                  <goal>run</goal>
++                </goals>
++              </execution>
++            </executions>
++          </plugin>
++        </plugins>
++      </build>
++    </profile>
++    <profile>
+       <id>build-native-launchers-win32.win32.x86_64</id>
+       <activation>
+         <property>
+diff --git a/features/org.eclipse.equinox.executable.feature/resources/build.properties b/features/org.eclipse.equinox.executable.feature/resources/build.properties
+index a224ffa..056c288 100644
+--- a/features/org.eclipse.equinox.executable.feature/resources/build.properties
++++ b/features/org.eclipse.equinox.executable.feature/resources/build.properties
+@@ -22,6 +22,9 @@ root.win32.win32.x86_64.permissions.755=launcher.exe
+ root.linux.gtk.x86=bin/gtk/linux/x86,gtk_root
+ root.linux.gtk.x86.permissions.755=launcher,libcairo-swt.so
+ 
++root.linux.gtk.armv6l=bin/gtk/linux/armv6l,gtk_root
++root.linux.gtk.x86.permissions.755=launcher,libcairo-swt.so
++
+ root.linux.gtk.ppc=bin/gtk/linux/ppc,gtk_root
+ root.linux.gtk.ppc.permissions.755=launcher
+ 
+diff --git a/features/org.eclipse.equinox.executable.feature/resources/build.xml b/features/org.eclipse.equinox.executable.feature/resources/build.xml
+index 29ed943..6988a4d 100644
+--- a/features/org.eclipse.equinox.executable.feature/resources/build.xml
++++ b/features/org.eclipse.equinox.executable.feature/resources/build.xml
+@@ -136,6 +136,14 @@
+ 		</copy>
+ 		<chmod perm="755" dir="${feature.base}/linux.gtk.x86/${collectingFolder}" includes="launcher" /> 
+ 	</target>
++	<target name="rootFileslinux_gtk_amrv6l">
++		<mkdir dir="${feature.base}/linux.gtk.amrv6l/${collectingFolder}"/>
++		<copy todir="${feature.base}/linux.gtk.amrv6l/${collectingFolder}" failonerror="true" overwrite="true">
++			<fileset dir="${basedir}/bin/gtk/linux/amrv6l" includes="**"			/>
++			<fileset dir="${basedir}/gtk_root" includes="**"			/>
++		</copy>
++		<chmod perm="755" dir="${feature.base}/linux.gtk.x86/${collectingFolder}" includes="launcher" /> 
++	</target>
+ 	<target name="rootFileslinux_gtk_ppc">
+ 		<mkdir dir="${feature.base}/linux.gtk.ppc/${collectingFolder}"/>
+ 		<copy todir="${feature.base}/linux.gtk.ppc/${collectingFolder}" failonerror="true" overwrite="true">
+@@ -241,6 +249,7 @@
+ 		<antcall target="rootFileslinux_gtk_x86_64"/>
+ 		<antcall target="rootFileslinux_gtk_ia64"/>
+ 		<antcall target="rootFileslinux_gtk_s390x"/>
++		<antcall target="rootFileslinux_gtk_armv6l"/>
+ 		<antcall target="rootFilessolaris_gtk_sparc"/>
+ 		<antcall target="rootFilessolaris_gtk_x86"/>
+ 		<antcall target="rootFilesaix_gtk_ppc64"/>
+@@ -270,4 +279,4 @@
+ 	<target name="gather.logs" depends="init">
+ 	</target>
+ 
+-</project>
+\ No newline at end of file
++</project>
+diff --git a/pom.xml b/pom.xml
+index 354a9e1..076aea8 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -61,6 +61,7 @@
+     <module>bundles/org.eclipse.equinox.launcher.gtk.linux.s390x</module>
+     <module>bundles/org.eclipse.equinox.launcher.gtk.linux.x86</module>
+     <module>bundles/org.eclipse.equinox.launcher.gtk.linux.x86_64</module>
++    <module>bundles/org.eclipse.equinox.launcher.gtk.linux.armv6l</module>
+     <module>bundles/org.eclipse.equinox.launcher.gtk.solaris.sparc</module>
+     <module>bundles/org.eclipse.equinox.launcher.gtk.solaris.x86</module>
+     <module>bundles/org.eclipse.equinox.launcher.win32.win32.ia64</module>

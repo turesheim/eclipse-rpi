@@ -1,0 +1,81 @@
+diff --git a/eclipse-platform-parent/pom.xml b/eclipse-platform-parent/pom.xml
+index 70478e8..8317d6f 100644
+--- a/eclipse-platform-parent/pom.xml
++++ b/eclipse-platform-parent/pom.xml
+@@ -227,6 +227,11 @@
+               <arch>s390x</arch>
+             </environment>
+             <environment>
++              <os>linux</os>
++              <ws>gtk</ws>
++              <arch>armv6l</arch>
++            </environment>
++            <environment>
+               <os>win32</os>
+               <ws>win32</ws>
+               <arch>x86</arch>
+diff --git a/eclipse.platform.releng.tychoeclipsebuilder/eclipse/helper.xml b/eclipse.platform.releng.tychoeclipsebuilder/eclipse/helper.xml
+index e8b0962..cb122bd 100644
+--- a/eclipse.platform.releng.tychoeclipsebuilder/eclipse/helper.xml
++++ b/eclipse.platform.releng.tychoeclipsebuilder/eclipse/helper.xml
+@@ -182,6 +182,17 @@
+                         name="arch"
+                         value="ppc64" />
+                 </antcall>
++                <antcall target="packageSwtStandalone">
++                    <param
++                        name="os"
++                        value="linux" />
++                    <param
++                        name="ws"
++                        value="gtk" />
++                    <param
++                        name="arch"
++                        value="armv6l" />
++                </antcall>
+             </sequential>
+         </parallel>
+ 
+diff --git a/eclipse.platform.releng.tychoeclipsebuilder/rcp.config/build.properties b/eclipse.platform.releng.tychoeclipsebuilder/rcp.config/build.properties
+index 3abb95b..6c033d5 100644
+--- a/eclipse.platform.releng.tychoeclipsebuilder/rcp.config/build.properties
++++ b/eclipse.platform.releng.tychoeclipsebuilder/rcp.config/build.properties
+@@ -46,6 +46,8 @@ root.linux.gtk.s390x.permissions.755=eclipse
+ root.linux.gtk.s390=rootfiles/linux.gtk.s390,../../rt.equinox.binaries/org.eclipse.equinox.executable/contributed/gtk/linux/s390
+ root.linux.gtk.s390.permissions.755=eclipse
+ 
++root.linux.gtk.armv6l=target/resources/linux.gtk.armv6l,../../rt.equinox.binaries/org.eclipse.equinox.executable/bin/gtk/linux/armv6l
++root.linux.gtk.armv6l.permissions.755=libcairo-swt.so,eclipse
+ 
+ bin.includes = feature.properties
+ 
+diff --git a/eclipse.platform.releng.tychoeclipsebuilder/rcp.config/pom.xml b/eclipse.platform.releng.tychoeclipsebuilder/rcp.config/pom.xml
+index cf4c5b9..d6eec6f 100644
+--- a/eclipse.platform.releng.tychoeclipsebuilder/rcp.config/pom.xml
++++ b/eclipse.platform.releng.tychoeclipsebuilder/rcp.config/pom.xml
+@@ -148,6 +148,25 @@
+               </resources>
+             </configuration>
+           </execution>
++          <execution>
++            <id>copy-resources-gtk.linux.armv6l</id>
++            <phase>validate</phase>
++            <goals>
++              <goal>copy-resources</goal>
++            </goals>
++            <configuration>
++              <outputDirectory>${basedir}/target/resources/linux.gtk.armv6l</outputDirectory>
++              <resources>
++                <resource>
++                  <directory>../../eclipse.platform.swt.binaries/bundles/org.eclipse.swt.gtk.linux.armv6l</directory>
++                  <includes>
++                    <include>about_files/*</include>
++                    <include>about.html</include>
++                  </includes>
++                </resource>
++              </resources>
++            </configuration>
++          </execution>
+         </executions>
+       </plugin>
+     </plugins>
