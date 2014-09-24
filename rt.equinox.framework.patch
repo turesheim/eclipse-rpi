@@ -396,7 +396,7 @@ index a224ffa..056c288 100644
  root.linux.gtk.x86.permissions.755=launcher,libcairo-swt.so
  
 +root.linux.gtk.armv6l=bin/gtk/linux/armv6l,gtk_root
-+root.linux.gtk.x86.permissions.755=launcher,libcairo-swt.so
++root.linux.gtk.armv6l.permissions.755=launcher,libcairo-swt.so
 +
  root.linux.gtk.ppc=bin/gtk/linux/ppc,gtk_root
  root.linux.gtk.ppc.permissions.755=launcher
@@ -409,15 +409,14 @@ index 29ed943..6988a4d 100644
  		</copy>
  		<chmod perm="755" dir="${feature.base}/linux.gtk.x86/${collectingFolder}" includes="launcher" /> 
  	</target>
-+	<target name="rootFileslinux_gtk_amrv6l">
-+		<mkdir dir="${feature.base}/linux.gtk.amrv6l/${collectingFolder}"/>
-+		<copy todir="${feature.base}/linux.gtk.amrv6l/${collectingFolder}" failonerror="true" overwrite="true">
-+			<fileset dir="${basedir}/bin/gtk/linux/amrv6l" includes="**"			/>
++	<target name="rootFileslinux_gtk_armv6l">
++		<mkdir dir="${feature.base}/linux.gtk.armv6l/${collectingFolder}"/>
++		<copy todir="${feature.base}/linux.gtk.armv6l/${collectingFolder}" failonerror="true" overwrite="true">
++			<fileset dir="${basedir}/bin/gtk/linux/armv6l" includes="**"			/>
 +			<fileset dir="${basedir}/gtk_root" includes="**"			/>
 +		</copy>
-+		<chmod perm="755" dir="${feature.base}/linux.gtk.x86/${collectingFolder}" includes="launcher" /> 
++		<chmod perm="755" dir="${feature.base}/linux.gtk.armv6l/${collectingFolder}" includes="launcher" /> 
 +	</target>
- 	<target name="rootFileslinux_gtk_ppc">
  		<mkdir dir="${feature.base}/linux.gtk.ppc/${collectingFolder}"/>
  		<copy todir="${feature.base}/linux.gtk.ppc/${collectingFolder}" failonerror="true" overwrite="true">
 @@ -241,6 +249,7 @@
